@@ -112,6 +112,47 @@ def addSportsPerson():
 
     print('------ SUCCESS ------\n')
     exit()
+def addplayedFor():
+
+    mycursor = conn.cursor()
+
+    print('------ Add Data to playedFor Table ------\n')
+
+    ID = int(input('Enter ID: '))
+    spID = int(input('Enter sports person ID: '))
+    weight = float(input('Enter player weight: '))
+    salary = float(input('Enter player salary: '))
+
+    sql = 'INSERT INTO playedFor ("ID", "spID", "weight", "salary") VALUES (%s, %s, %s, %s)'
+    val = (ID, spID, weight, salary)
+    mycursor.execute(sql,val)
+    conn.commit()
+    print('------ SUCCESS ------\n')
+    exit()
+    
+def selectPlayedfor():
+
+    mycursor = conn.cursor()
+
+    print('------ Select Data from playedfor Table ------\n')
+
+    try:
+        sql = 'SELECT * FROM playedfor'
+        mycursor.execute(sql)
+
+        rows = mycursor.fetchall()
+
+        if rows:
+            print("ID\tspID\tWeight\tSalary")
+            for row in rows:
+                print(f"{row[0]}\t{row[1]}\t{row[2]}\t{row[3]}")
+        else:
+            print("Not found in playedFor table")
+
+    except psycopg2.Error as e:
+        print(f'Error: {e}')
+    exit()
+
 
 def getAllPlayersbyPosition():
     
@@ -136,6 +177,82 @@ def getAllPlayersbyPosition():
             print("\n")
 
     print('------ SUCCESS ------\n')
+    exit()
+def addAward():
+    mycursor = conn.cursor()
+
+    print('------ Add Data to award Table ------\n')
+
+    organizationName = input('Enter organization name: ')
+    spID = int(input('Enter sports person ID: '))
+
+    sql = 'INSERT INTO award ("organizationName", "spID") VALUES (%s, %s)'
+    val = (organizationName, spID)
+    mycursor.execute(sql, val)
+    conn.commit()
+    print('------ SUCCESS: Data added to award Table ------\n')
+    exit()
+
+def selectAward():
+
+    mycursor = conn.cursor()
+
+    print('------ Select Data from award Table ------\n')
+
+    try:
+        sql = 'SELECT * FROM award'
+        mycursor.execute(sql)
+
+        rows = mycursor.fetchall()
+
+        if rows:
+            print("OrganizationName\tspID")
+            for row in rows:
+                print(f"{row[0]}\t\t{row[1]}")
+        else:
+            print("Not found in award table")
+
+    except psycopg2.Error as e:
+        print(f'Error: {e}')
+    exit()
+    
+def addOrganization():
+
+    mycursor = conn.cursor()
+
+    print('------ Add Data to organization Table ------\n')
+
+    orgID = int(input('Enter organization ID: '))
+    name = input('Enter organization name: ')
+
+    sql = 'INSERT INTO organization ("orgID", "name") VALUES (%s, %s)'
+    val = (orgID, name)
+    mycursor.execute(sql, val)
+    conn.commit()
+    print('------ SUCCESS------\n')
+    exit()
+    
+def selectOrganization():
+
+    mycursor = conn.cursor()
+
+    print('------ Select Data from organization Table ------\n')
+
+    try:
+        sql = 'SELECT * FROM organization'
+        mycursor.execute(sql)
+
+        rows = mycursor.fetchall()
+
+        if rows:
+            print("orgID\tname")
+            for row in rows:
+                print(f"{row[0]}\t{row[1]}")
+        else:
+            print("Not found in organization table")
+
+    except psycopg2.Error as e:
+        print(f'Error: {e}')
     exit()
 
 def displayMainMenu():
